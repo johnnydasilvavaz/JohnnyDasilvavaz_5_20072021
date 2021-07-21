@@ -1,0 +1,21 @@
+.html {
+    font-family: "Roboto-light", Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 65px;
+    &__index {
+        animation: overflow 2.3s forwards;
+    }
+}
+
+@keyframes overflow {
+    0% {
+        overflow: hidden;
+    }
+    99% {
+        overflow: hidden;
+    }
+    100% {
+        overflow: auto;
+    }
+}

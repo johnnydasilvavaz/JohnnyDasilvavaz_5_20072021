@@ -1,0 +1,29 @@
+@mixin shadows ($alpha: .2, $blur: .6rem, $vert: .4rem, $inset: false) {
+    @if ($inset) {
+        box-shadow: inset 0 $vert $blur rgba(black, $alpha);
+    } @else {
+        box-shadow: 0 $vert $blur rgba(black, $alpha);
+    }
+}
+
+@mixin flex($dir: row, $just: center, $align: center) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: $just;
+    align-items: $align;
+}
+
+@mixin link-elements {
+    content: "";
+    @include flex(column);
+    position: absolute;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    color: black;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
