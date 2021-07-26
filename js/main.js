@@ -7,7 +7,7 @@ function createCards(list) {
         content.appendChild(card);
         let link = document.createElement('a');
         link.setAttribute('class', 'maincard__link');
-        link.setAttribute('href', './' + list[teddie].name + '.html');
+        link.setAttribute('href', './pages/' + list[teddie].name + '.html');
         card.appendChild(link);
         let imgdiv = document.createElement('div');
         imgdiv.setAttribute('class', 'maincard__imgdiv');

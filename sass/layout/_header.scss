@@ -37,4 +37,23 @@
         padding: 0 1rem;
         margin: 0;
     }
+    &__pin {
+        position: absolute;
+        top: 1rem;
+        left: .9rem;
+        height: .6rem;
+        width: .6rem;
+        background-color: red;
+        border-radius: .8rem;
+        /*animation: pop .3s forwards;*/
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
