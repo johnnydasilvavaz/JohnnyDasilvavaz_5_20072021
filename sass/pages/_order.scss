@@ -1,0 +1,9 @@
+.line {
+    @include flex(row, space-between);
+    width: calc(100% - 2rem);
+    height: 4rem;
+    &__img {
+        object-fit: cover;
+        width: 5rem;
+    }
+}

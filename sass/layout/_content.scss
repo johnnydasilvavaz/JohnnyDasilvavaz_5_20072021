@@ -1,5 +1,6 @@
 .content {
-    @include flex(column, flex-start);
+    @include flex(row, space-between);
+    flex-wrap: wrap;
     width: 100%;
     max-width: 75rem;
     padding-top: 65px;

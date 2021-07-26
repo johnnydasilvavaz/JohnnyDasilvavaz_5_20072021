@@ -1,17 +1,20 @@
 .maincard {
-    @include flex(row,space-between);
-    width: 90%;
-    height: 10rem;
+    @include flex(row,flex-start);
+    position: relative;
+    width: calc(90% - 20px);
+    max-width: 33rem;
+    height: 8.75rem;
     background: linear-gradient(300deg, rgba(#eee,1) 0%, rgba(#fff,1) 100%);
     border-radius: 10rem 1rem 1rem 10rem;
-    margin-top: 1rem;
+    margin: 1rem 1.25rem 0;
+    padding: 10px;
     @include shadows(.25, .6rem, .3rem);
     &__imgdiv {
         position: relative;
+        justify-self: flex-start;
         max-height: 8.75rem;
         min-width: 8.75rem;
         border-radius: 50%;
-        margin-left: 10px;
         border-radius: 50%;
         overflow: hidden;
         &:after {
@@ -25,6 +28,11 @@
             @include shadows(.25, .3rem, .15rem, true);
         }
     }
+    &__link {
+        &:after {
+            @include link-elements;
+        }
+    }
     &__img {
         object-fit: cover;
         height: 8.75rem;
@@ -32,23 +40,24 @@
     }
     &__body {
         @include flex(column, space-between);
-        height: calc(100% - 1.25rem);
-        min-width: 50%;
-        padding: 0.625rem;
+        height: calc(100%);
+        width: calc(100% - 8.75rem);
+        padding-left: 0.625rem;
     }
     &__desc {
         margin: 0 0 .5rem;
-        max-width: 10rem;
+        width: 100%;
         overflow: hidden;
     }
     &__price {
+        align-self: flex-end;
         font-family: Roboto-regular;
         font-size: 1.2rem;
         margin: 0;
     }
     & h2 {
         font-family: Roboto-regular;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         margin: 0 0 .5rem;
         color: $color-secondary;
     }
