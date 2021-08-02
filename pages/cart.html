@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>OriTeddies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../fontawesome/css/all.min.css">
+</head>
+<html class="html">
+    <body class="body">
+        <header class="header">
+            <div class="header__content">
+                <div class="header__return">
+                    <a href="../index.html"><i class="fas fa-arrow-circle-left"></i></a>
+                </div>
+                <p>OriTeddies</p>
+                <div class="header__cart">
+                    <a href="./cart.html"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
+        </header>
+        <section class="pagecontent">
+            <div class="container container--cart">
+                <h2 class="title">Panier</h2>
+                <div id="emptyMsg">
+                    <p>Votre panier est vide</p>
+                    <button id="mainBtn" class="btn" type="button">Retourner à la boutique</button>
+                </div>
+            </div>
+            <div id="buy" class="buy">
+                <h3>Commander</h3>
+                <form class="buy__form">
+                    <div>
+                        <label for="firstname">Prénom : </label>
+                        <input id="firstname" type="text" class="input" required='required' onblur="checkName(firstName)">
+                        <span class="validfirstname"></span>
+                    </div>
+                    <div>
+                        <label for="lastname">Nom : </label>
+                        <input id="lastname" type="text" class="input" required='required' onblur="checkName(lastName)">
+                        <span class="validLastname"></span>
+                    </div>
+                    <div>
+                        <label for="address">Adresse : </label>
+                        <input id="address" type="text" class="input" required='required' onblur="checkAddress(address)">
+                        <span class="validAddress"></span>
+                    </div>
+                    <div>
+                        <label for="city">Ville : </label>
+                        <input id="city" type="text" class="input" required='required' onblur="checkName(city)">
+                        <span class="validCity"></span>
+                    </div>
+                    <div>
+                        <label for="email">E-mail : </label>
+                        <input id="email" type="email" class="input" required='required' onblur="checkEmail(email)">
+                        <span class="validEmail"></span>
+                    </div>
+                    <button id="buy_btn" class="btn" type="button">Passer commande <i class="far fa-credit-card"></i></button>
+                </form>
+            </div>
+        </section>
+        <footer class="footer">
+            <a href="">Mentions légales</a>
+            <a href="">CGV</a>
+            <a href="">Contact</a>
+        </footer>
+        <script src="../js/functions.js"></script>
+        <script src="../js/cart.js"></script>
+        <script type="text/javascript" src="../js/order.js"></script>
+    </body>
+</html>

@@ -9,6 +9,10 @@
     margin: 1rem 1.25rem 0;
     padding: 10px;
     @include shadows(.25, .6rem, .3rem);
+    transition: box-shadow .2s;
+    &:hover {
+        @include shadows(.25, .3rem, .2rem);
+    }
     &__imgdiv {
         position: relative;
         justify-self: flex-start;

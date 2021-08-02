@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>OriTeddies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../fontawesome/css/all.min.css">
+</head>
+<html class="html">
+    <body class="body">
+        <div id="modal" class="modal">
+            <div class="modal__card">
+                <p class="modal__txt">Votre/vos produit(s) ont été ajoutés au panier</p>
+                <div class="modal__buttons">
+                    <button id="btn-continue" class="btn btn--secondary">Continuer les achats</button>
+                    <button id="btn-cart" class="btn">Passer la commande</button>
+                </div>
+            </div>
+        </div>
+        <header class="header">
+            <div class="header__content">
+                <div class="header__return">
+                    <a href="../index.html"><i class="fas fa-arrow-circle-left"></i></a>
+                </div>
+                <p>OriTeddies</p>
+                <div class="header__cart">
+                    <a href="./cart.html"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
+        </header>
+        <section class="pagecontent">
+            <div class="hero">
+                <div class="imgcontainer">
+                    <img id="img_teddie" class="img" src="" alt="teddie">
+                </div>
+            </div>
+            <div class="container">
+                <h2 id="name_teddie" class="title"></h2>
+                <p id="desc_teddie" class="desc"></p>
+                <p id="price_teddie" class="price"></p>
+            </div>
+            <div class="buy">
+                <h3>Acheter</h3>
+                <form class="buy__form">
+                    <div>
+                        <label for="select-color">Couleur : </label>
+                        <select name="select-color" id="select-color" class="input"></select>
+                    </div>
+                    <div>
+                        <label for="select-qty">Quantité : </label>
+                        <input type="number" id="select-qty" class="input" value="1" size="3" min="1" max="99">
+                        <p id="buy_price"></p>
+                    </div>
+                    <button id="add_btn" class="btn" type="button">Ajouter au panier <i class="fas fa-cart-arrow-down"></i></button>
+                </form>
+            </div>
+        </section>
+        <footer class="footer">
+            <a href="">Mentions légales</a>
+            <a href="">CGV</a>
+            <a href="">Contact</a>
+        </footer>
+        <script src="../js/functions.js"></script>
+        <script src="../js/cart.js"></script>
+        <script type="text/javascript" src="../js/product.js"></script>
+    </body>
+</html>

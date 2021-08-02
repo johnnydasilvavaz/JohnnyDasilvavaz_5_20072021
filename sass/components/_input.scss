@@ -1,0 +1,11 @@
+.input {
+    margin-left: .5rem;
+    border-radius: .4rem;
+    border: .1rem solid lighten($color-primary, 20);
+    &:focus {
+        outline: .1rem solid $color-secondary;
+    }
+    &--invalid {
+        border: .1rem solid lighten(red, 20);
+    }
+}

@@ -6,6 +6,19 @@ async function fetchUrl(url) {
     }
 }
 
+async function fetchPost(url, body) {
+    try {
+        return await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'content-type': 'application/json'}
+        }).then((response) => response.json());
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function getTeddies() {
     try {
         return await fetchUrl("http://localhost:3000/api/teddies");
@@ -16,7 +29,7 @@ async function getTeddies() {
 
 function addToLocalStorage(data) {
     try {
-        window.localStorage.setItem('oriteddies', JSON.stringify(data));
+        localStorage.setItem('oriteddies', JSON.stringify(data));
     } catch (error) {
         console.log(error);
     }
@@ -30,9 +43,9 @@ function getLocalStorage(data) {
     }
 }
 
-function removeFromLocalStorage(data) {
+function clearLocalStorage() {
     try {
-        
+        localStorage.clear();
     } catch (error) {
         console.log(error);
     }
