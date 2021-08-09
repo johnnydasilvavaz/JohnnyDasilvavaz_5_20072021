@@ -22,6 +22,7 @@
 
 .pagecontent {
     @include flex(column, flex-start);
+    flex-grow: 1;
     width: 100%;
     max-width: 75rem;
     padding-top: 65px;
@@ -49,13 +50,6 @@
         left: 0;
         background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);;
     }
-}
-
-.title {
-    font-family: Roboto-regular;
-    font-size: 1.8rem;
-    margin: 0 0 .5rem;
-    color: $color-secondary;
 }
 
 .desc {

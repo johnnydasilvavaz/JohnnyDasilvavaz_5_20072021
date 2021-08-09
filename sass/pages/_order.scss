@@ -8,6 +8,14 @@
         margin: .5rem 0;
         @include shadows;
         border-radius: .8rem;
+        &__body {
+            @include flex(row, space-evenly);
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        & p {
+            margin: .5rem .2rem;
+        }
     }
     &__img {
         object-fit: cover;
@@ -21,6 +29,18 @@
         text-decoration: none;
         color: $color-txt-primary;
         font-family: Roboto-medium;
+    }
+}
+
+.recap {
+    @include flex(column, flex-start);
+    width: 100%;
+    &__list {
+        @include flex(column, flex-start);
+        width: 100%;
+    }
+    &__footer {
+        @include flex(column);
     }
 }
 

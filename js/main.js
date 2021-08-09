@@ -1,10 +1,10 @@
-let content = document.querySelector(".content");
+let cards = document.querySelector(".cards");
 
 function createCards(list) {
     for (let teddie in list) {
         let card = document.createElement('div');
         card.setAttribute('class', 'maincard');
-        content.appendChild(card);
+        cards.appendChild(card);
         let link = document.createElement('a');
         link.setAttribute('class', 'maincard__link');
         link.setAttribute('href', './pages/product.html?product=' + list[teddie]._id);
@@ -33,4 +33,4 @@ function createCards(list) {
     }
 }
 
-getTeddies().then((result) => createCards(result));
+fetchUrl("http://localhost:3000/api/teddies").then((result) => createCards(result));

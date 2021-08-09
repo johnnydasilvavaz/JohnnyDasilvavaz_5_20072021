@@ -6,7 +6,7 @@ async function fetchUrl(url) {
     }
 }
 
-async function fetchPost(url, body) {
+async function postUrl(url, body) {
     try {
         return await fetch(url, {
             method: 'POST',
@@ -14,14 +14,6 @@ async function fetchPost(url, body) {
             headers: {
                 'content-type': 'application/json'}
         }).then((response) => response.json());
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function getTeddies() {
-    try {
-        return await fetchUrl("http://localhost:3000/api/teddies");
     } catch (error) {
         console.log(error);
     }

@@ -7,5 +7,6 @@
     }
     &--invalid {
         border: .1rem solid lighten(red, 20);
+        @include shadows(.25, .4rem, 0, true, red);
     }
 }

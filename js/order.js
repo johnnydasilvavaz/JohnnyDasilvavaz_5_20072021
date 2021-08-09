@@ -1,34 +1,46 @@
-const teddies = getTeddies().then((result) => storeAPI(result));
+const teddies = fetchUrl("http://localhost:3000/api/teddies").then((result) => storeAPI(result));
 const container = document.querySelector('.container');
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,})*$/;
 const addressRegex = /^[a-zA-Zéèàùê0-9 ',.-]{3,}$/;
 const nameRegex = /^[a-zA-Zéèàùê '.-]{2,}$/;
-const firstName = document.querySelector("#firstname");
-const lastName = document.querySelector("#lastname");
-const address = document.querySelector("#address");
-const city = document.querySelector("#city");
-const email = document.querySelector("#email");
 let totalPrice;
+let totalArray = [];
+let cartPrice;
 let teddiesAPI = [];
 function storeAPI(result) {
     teddiesAPI = result;
     createPage(teddiesAPI);
 }
+//Récupération des éléments du DOM
+//formulaire
+const firstName = document.querySelector("#firstname");
+const lastName = document.querySelector("#lastname");
+const address = document.querySelector("#address");
+const city = document.querySelector("#city");
+const email = document.querySelector("#email");
 const emptyMsg = document.querySelector('#emptyMsg');
-const shopButton = document.querySelector('#mainBtn');
-shopButton.addEventListener('click', () => window.location = '../index.html');
 const buyForm = document.querySelector('#buy');
 const buyButton = document.querySelector('#buy_btn');
 buyButton.addEventListener('click', () => checkForm());
+//Récapitulatif
+const recap = document.querySelector('#recap');
+const recapList = document.querySelector('#recapList')
+const recapTotal = document.querySelector('#recapTotal');
+const recapEmptyLink = document.querySelector('.order__link');
+recapEmptyLink.addEventListener('click', () => emptyCartAll(recapList));
+//Bouton retour a la boutique
+const shopButton = document.querySelector('#mainBtn');
+shopButton.addEventListener('click', () => window.location = '../index.html');
+//Masquage des éléments
+recap.style.display = 'none';
 emptyMsg.style.display = 'none';
 buyForm.style.display = 'none';
 
 function checkCart() {
     if (getLocalStorage('oriteddies')) {
         getCartList();
-        console.log('ok');
         if (Object.keys(cartList).length != 0) {
-            buyForm.style.display = 'flex';
+            showCart(true)
             console.log(cartList);
             return true;
         } else {
@@ -41,19 +53,16 @@ function checkCart() {
 
 function createPage(apiList) {
     if (checkCart()) {
-        console.log('checkcart passed');
+        totalArray = [];
         let lines = document.createElement('div');
         lines.setAttribute('class', 'order');
-        container.appendChild(lines);
+        recapList.appendChild(lines);
         //boucle recherche d'id dans cartList
         for (let idCart of Object.keys(cartList)){
-            console.log("idcart" + idCart);
             //boucle recherche d'array dans l'id
             for (let idArray in cartList[idCart]) {
-                console.log(cartList[idCart]);
                 //boucle de recherche de teddie dans l'api
                 for (let apiItem in apiList) {
-                    console.log("apiItem" + apiItem);
                     //vérifie si l'id dans le panier = l'id dans l'API et créer les lignes si c'est vrai
                     if (idCart == apiList[apiItem]._id) {
                         let line = document.createElement('div');
@@ -63,9 +72,12 @@ function createPage(apiList) {
                         lineImg.setAttribute('class', 'order__img');
                         lineImg.setAttribute('src', apiList[apiItem].imageUrl);
                         line.appendChild(lineImg);
+                        let lineDiv = document.createElement('div');
+                        lineDiv.setAttribute('class', 'order__line__body');
+                        line.appendChild(lineDiv);
                         let lineDesc = document.createElement('p');
                         lineDesc.innerText = apiList[apiItem].name + " (" + cartList[apiList[apiItem]._id][idArray].color + ")";
-                        line.appendChild(lineDesc);
+                        lineDiv.appendChild(lineDesc);
                         let lineNbr = document.createElement('input');
                         lineNbr.setAttribute('id', 'select-qty');
                         lineNbr.setAttribute('class', 'input');
@@ -74,98 +86,107 @@ function createPage(apiList) {
                         lineNbr.setAttribute('size', 3);
                         lineNbr.setAttribute('min', 1);
                         lineNbr.setAttribute('max', 99);
-                        line.appendChild(lineNbr);
+                        lineDiv.appendChild(lineNbr);
                         let linePrice = document.createElement('p');
                         totalPrice = apiList[apiItem].price * cartList[apiList[apiItem]._id][idArray].qty;
-                        linePrice.innerText = " = " + totalPrice + " €";
-                        line.appendChild(linePrice);
+                        linePrice.innerText = " " + totalPrice + " €";
+                        totalArray.push(linePrice);
+                        lineDiv.appendChild(linePrice);
                         lineNbr.addEventListener('change', (event) => {
+                            cartList[apiList[apiItem]._id][idArray].qty = event.target.value;
+                            addToLocalStorage(cartList);
                             totalPrice = apiList[apiItem].price * event.target.value;
-                            linePrice.innerText = " = " + totalPrice + " €";
+                            linePrice.innerText = " " + totalPrice + " €";
+                            calcTotal();
                         });
                         let lineBtn = document.createElement('button');
                         lineBtn.setAttribute('type', 'button');
                         lineBtn.setAttribute('class', 'btn');
                         lineBtn.innerText = 'X';
-                        console.log(cartList[apiList[apiItem]._id][idArray]);
                         lineBtn.addEventListener('click', () => removeCartElement(apiList[apiItem]._id, lines, idArray));
                         line.appendChild(lineBtn);
                     }
                 }
             }
         }
-        let emptyAll = document.createElement('a');
-        emptyAll.innerText = "Vider le panier";
-        emptyAll.setAttribute('class', 'order__link');
-        emptyAll.setAttribute('href', '#');
-        emptyAll.addEventListener('click', () => emptyCartElements(lines, emptyAll, true));
-        container.appendChild(emptyAll);
+        calcTotal();
     } else {
-        cartEmptyMsg();
+        showCart(false);
     }
 }
 
-function emptyCartElements(element, msg, all) {
-    if (all) {
-        emptyCart(element);
-        cartEmptyMsg();
+function calcTotal() {
+    let addition = 0;
+    for (val in totalArray) {
+        totalArray[val].innerText.replace(" €", "");
+        addition += parseInt(totalArray[val].innerText);
     }
-    msg.remove();
+    recapTotal.innerText = addition + " €";
+    return addition;
+}
+
+function emptyCartAll(element) {
+    emptyCart(element);
+    showCart(false);
 }
 
 function removeCartElement(element, lines, color) {
     removeFromCart(element, color);
     lines.innerHTML = '';
     lines.remove();
-    document.querySelector('.order__link').remove();
     getCartList();
     console.log(Object.keys(cartList).length);
     if (Object.keys(cartList).length == 0) {
-        cartEmptyMsg();
+        showCart(false);
     } else {
         createPage(teddiesAPI);
     }
 }
 
-function cartEmptyMsg() {
-    emptyMsg.style.display = 'flex';
-    buyForm.style.display = 'none';
-}
-
-function checkEmail(mail) {
-    if (emailRegex.test(mail.value)) {
-        mail.className = 'input';
-        return true;
+function showCart(value) {
+    if (value) {
+        emptyMsg.style.display = 'none';
+        buyForm.style.display = 'flex';
+        recap.style.display = 'flex';
     } else {
-        mail.className = 'input input--invalid';
-        return false;
+        emptyMsg.style.display = 'flex';
+        buyForm.style.display = 'none';
+        recap.style.display = 'none';
     }
 }
 
-function checkAddress(address) {
-    if (addressRegex.test(address.value)) {
-        address.className = 'input';
-        return true;
-    } else {
-        address.className = 'input input--invalid';
-        return false;
+function checkInput(type, input) {
+    let reg;
+    switch(type){
+        case "email":
+            reg = emailRegex;
+            break;
+        case "address":
+            reg = addressRegex;
+            break;
+        case "name":
+            reg = nameRegex;
+            break;
     }
-}
-
-function checkName(name) {
-    if (nameRegex.test(name.value)) {
-        name.className = 'input';
+    if (reg.test(input.value)) {
+        input.className = 'input';
         return true;
     } else {
-        name.className = 'input input--invalid';
+        input.className = 'input input--invalid';
+        console.log(type + "faux");
         return false;
     }
 }
 
 function checkForm() {
-    if (checkName(firstName) && checkName(lastName) && checkAddress(address) && checkName(city) && checkEmail(email)) {
+    if (checkInput("name", firstName) && checkInput("name", lastName) && checkInput("address", address) && checkInput("name", city) && checkInput("email", email)) {
         sendOrder();
     } else {
+        checkInput("name", firstName);
+        checkInput("name", lastName);
+        checkInput("address", address);
+        checkInput("name", city);
+        checkInput("email", email);
         return false;
     }
 }
@@ -186,7 +207,7 @@ function sendOrder() {
         },
     "products": idList}
     console.log(JSON.stringify(order));
-    const postResult = fetchPost('http://localhost:3000/api/teddies/order', order).then((result) => orderPage(result));
+    postUrl('http://localhost:3000/api/teddies/order', order).then((result) => orderPage(result));
     }
 }
 
@@ -200,5 +221,5 @@ function orderPage(result) {
         }
     }
     console.log(orderId);
-    window.location = "./order.html?id=" + orderId;
+    window.location = "./confirmation.html?id=" + orderId + "&price=" + recapTotal.innerText;
 }

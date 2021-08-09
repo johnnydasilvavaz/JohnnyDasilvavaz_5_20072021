@@ -17,46 +17,55 @@
                 <p>OriTeddies</p>
                 <div class="header__cart">
                     <a href="./cart.html"><i class="fas fa-shopping-cart"></i></a>
+                    <div class="header__pin"></div>
                 </div>
             </div>
         </header>
         <section class="pagecontent">
             <div class="container container--cart">
                 <h2 class="title">Panier</h2>
+                <div id="recap" class="recap">
+                    <div id="recapList" class="recap__list">
+                    </div>
+                    <div class="recap__footer">
+                        <p id="recapTotal" class="recap__total"></p>
+                        <a class="order__link" href="#"><i class="fas fa-trash-alt"></i> Vider le panier</a>
+                    </div>
+                </div>
                 <div id="emptyMsg">
                     <p>Votre panier est vide</p>
                     <button id="mainBtn" class="btn" type="button">Retourner à la boutique</button>
                 </div>
             </div>
             <div id="buy" class="buy">
-                <h3>Commander</h3>
+                <h3>Commande</h3>
                 <form class="buy__form">
                     <div>
                         <label for="firstname">Prénom : </label>
-                        <input id="firstname" type="text" class="input" required='required' onblur="checkName(firstName)">
+                        <input id="firstname" type="text" class="input" required='required' onblur="checkInput('name', firstName)">
                         <span class="validfirstname"></span>
                     </div>
                     <div>
                         <label for="lastname">Nom : </label>
-                        <input id="lastname" type="text" class="input" required='required' onblur="checkName(lastName)">
+                        <input id="lastname" type="text" class="input" required='required' onblur="checkInput('name', lastName)">
                         <span class="validLastname"></span>
                     </div>
                     <div>
                         <label for="address">Adresse : </label>
-                        <input id="address" type="text" class="input" required='required' onblur="checkAddress(address)">
+                        <input id="address" type="text" class="input" required='required' onblur="checkInput('address', address)">
                         <span class="validAddress"></span>
                     </div>
                     <div>
                         <label for="city">Ville : </label>
-                        <input id="city" type="text" class="input" required='required' onblur="checkName(city)">
+                        <input id="city" type="text" class="input" required='required' onblur="checkInput('name', city)">
                         <span class="validCity"></span>
                     </div>
                     <div>
                         <label for="email">E-mail : </label>
-                        <input id="email" type="email" class="input" required='required' onblur="checkEmail(email)">
+                        <input id="email" type="email" class="input" required='required' onblur="checkInput('email', email)">
                         <span class="validEmail"></span>
                     </div>
-                    <button id="buy_btn" class="btn" type="button">Passer commande <i class="far fa-credit-card"></i></button>
+                    <button id="buy_btn" class="btn" type="button"><i class="far fa-credit-card"></i> Passer commande</button>
                 </form>
             </div>
         </section>

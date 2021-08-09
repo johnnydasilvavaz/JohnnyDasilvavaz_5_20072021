@@ -1,11 +1,9 @@
 let cartList = {};
-const cartIcon = document.querySelector('.header__cart');
-let pin = document.createElement('div');
-pin.setAttribute('class', 'header__pin');
+const pin = document.querySelector('.header__pin');
 pin.style.display = 'none';
-cartIcon.appendChild(pin);
 getCartList();
 
+//ajoute l'élément au panier
 function addToCart(id, color, nbr) {
     if (getLocalStorage('oriteddies')) {
         getCartList();
@@ -13,7 +11,7 @@ function addToCart(id, color, nbr) {
 
     if (cartList[id]) {
         for (let i in cartList[id]) {
-            if (testElement(cartList[id][i], color)) {
+            if (cartList[id][i] == color) {
                 cartList[id][i].qty += nbr;
                 addToLocalStorage(cartList);
                 return;
@@ -23,19 +21,10 @@ function addToCart(id, color, nbr) {
         addToLocalStorage(cartList);
     } else {
         cartList[id] = [{color: color, qty: nbr}];
-        //cartList.[id] = [{color: color, qty: nbr}];
         addToLocalStorage(cartList);
     }
     
     pin.style.display = 'block';
-    console.log(cartList);
-}
-
-function testElement(source, element) {
-    if (source.color == element) {
-        return true;
-    }
-    return false;
 }
 
 function removeFromCart(id, color) {
