@@ -3,7 +3,6 @@ const pin = document.querySelector('.header__pin');
 pin.style.display = 'none';
 getCartList();
 
-//ajoute l'élément au panier
 function addToCart(id, color, nbr) {
     if (getLocalStorage('oriteddies')) {
         getCartList();
@@ -30,12 +29,10 @@ function addToCart(id, color, nbr) {
 function removeFromCart(id, color) {
     getCartList();
     if (Object.keys(cartList).length != 0) {
-        console.log(cartList[id]);
         cartList[id].splice(color, 1);
         if (cartList[id].length == 0) {
             delete cartList[id];
         }
-        console.log(cartList);
         addToLocalStorage(cartList);
         getCartList();
     }

@@ -1,5 +1,7 @@
+//fetch data from api
 const teddies = fetchUrl("http://localhost:3000/api/teddies").then((result) => storeAPI(result));
 const container = document.querySelector('.container');
+//regex
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,})*$/;
 const addressRegex = /^[a-zA-Zéèàùê0-9 ',.-]{3,}$/;
 const nameRegex = /^[a-zA-Zéèàùê '.-]{2,}$/;
@@ -11,8 +13,8 @@ function storeAPI(result) {
     teddiesAPI = result;
     createPage(teddiesAPI);
 }
-//Récupération des éléments du DOM
-//formulaire
+
+//form
 const firstName = document.querySelector("#firstname");
 const lastName = document.querySelector("#lastname");
 const address = document.querySelector("#address");
@@ -22,16 +24,19 @@ const emptyMsg = document.querySelector('#emptyMsg');
 const buyForm = document.querySelector('#buy');
 const buyButton = document.querySelector('#buy_btn');
 buyButton.addEventListener('click', () => checkForm());
-//Récapitulatif
+
 const recap = document.querySelector('#recap');
 const recapList = document.querySelector('#recapList')
 const recapTotal = document.querySelector('#recapTotal');
 const recapEmptyLink = document.querySelector('.order__link');
-recapEmptyLink.addEventListener('click', () => emptyCartAll(recapList));
-//Bouton retour a la boutique
+recapEmptyLink.addEventListener('click', () => {
+    emptyCart(recapList);
+    showCart(false);
+});
+//button back to home
 const shopButton = document.querySelector('#mainBtn');
 shopButton.addEventListener('click', () => window.location = '../index.html');
-//Masquage des éléments
+//hidding elements
 recap.style.display = 'none';
 emptyMsg.style.display = 'none';
 buyForm.style.display = 'none';
@@ -41,7 +46,6 @@ function checkCart() {
         getCartList();
         if (Object.keys(cartList).length != 0) {
             showCart(true)
-            console.log(cartList);
             return true;
         } else {
             return false;
@@ -57,13 +61,13 @@ function createPage(apiList) {
         let lines = document.createElement('div');
         lines.setAttribute('class', 'order');
         recapList.appendChild(lines);
-        //boucle recherche d'id dans cartList
+        //loop to search an id in cartList
         for (let idCart of Object.keys(cartList)){
-            //boucle recherche d'array dans l'id
+            //loop to search arrays in cartList keys
             for (let idArray in cartList[idCart]) {
-                //boucle de recherche de teddie dans l'api
+                //loop to search teddie in API
                 for (let apiItem in apiList) {
-                    //vérifie si l'id dans le panier = l'id dans l'API et créer les lignes si c'est vrai
+                    //check if id in cart = id in API & create lines if true
                     if (idCart == apiList[apiItem]._id) {
                         let line = document.createElement('div');
                         line.setAttribute('class', 'order__line');
@@ -125,17 +129,11 @@ function calcTotal() {
     return addition;
 }
 
-function emptyCartAll(element) {
-    emptyCart(element);
-    showCart(false);
-}
-
 function removeCartElement(element, lines, color) {
     removeFromCart(element, color);
     lines.innerHTML = '';
     lines.remove();
     getCartList();
-    console.log(Object.keys(cartList).length);
     if (Object.keys(cartList).length == 0) {
         showCart(false);
     } else {
@@ -173,7 +171,6 @@ function checkInput(type, input) {
         return true;
     } else {
         input.className = 'input input--invalid';
-        console.log(type + "faux");
         return false;
     }
 }
@@ -206,20 +203,16 @@ function sendOrder() {
             city: city.value
         },
     "products": idList}
-    console.log(JSON.stringify(order));
     postUrl('http://localhost:3000/api/teddies/order', order).then((result) => orderPage(result));
     }
 }
 
 function orderPage(result) {
     let orderId;
-    console.log(result);
     for (idKey in result) {
-        console.log(idKey);
         if (idKey == "orderId") {
             orderId = result[idKey];
         }
     }
-    console.log(orderId);
     window.location = "./confirmation.html?id=" + orderId + "&price=" + recapTotal.innerText;
 }

@@ -55,5 +55,8 @@ function createPage(element) {
     });
     //add to cart button
     let addCart = document.querySelector('#add_btn');
-    addCart.addEventListener('click', () => {addToCart(element._id, selectColor.value, parseInt(selectQty.value, 10)), switchModal(modal)});
+    addCart.addEventListener('click', () => {
+        addToCart(element._id, selectColor.value, parseInt(selectQty.value, 10)); 
+        switchModal(modal);
+    });
 }
