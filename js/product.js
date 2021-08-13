@@ -6,7 +6,7 @@ const modal = document.querySelector('#modal');
 const btnContinue = document.querySelector('#btn-continue');
 btnContinue.addEventListener('click', () => switchModal(modal));
 const btnCart = document.querySelector('#btn-cart');
-btnCart.addEventListener('click', () => gotoUrl('./cart.html'));
+btnCart.addEventListener('click', () => window.location.href = './cart.html');
 modal.style.display = 'none';
 const teddie = fetchUrl("http://localhost:3000/api/teddies/" + product).then((result) => createPage(result));
 let totalPrice;
@@ -17,10 +17,6 @@ function switchModal(modal) {
     } else {
         modal.style.display = 'flex';
     }
-}
-
-function gotoUrl(url) {
-    window.location.href = url;
 }
 
 function createPage(element) {

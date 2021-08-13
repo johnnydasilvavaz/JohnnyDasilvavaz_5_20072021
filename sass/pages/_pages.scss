@@ -44,7 +44,7 @@
     &:before {
         content: "";
         position: absolute;
-        bottom: 100%;
+        bottom: calc(100% - 1px);
         top: -4rem;
         right: 0;
         left: 0;
@@ -103,4 +103,8 @@
         @include flex;
         flex-wrap: wrap;
     }
+}
+
+#msgOrder {
+    @include flex;
 }

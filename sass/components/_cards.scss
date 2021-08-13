@@ -51,6 +51,7 @@
     &__desc {
         margin: 0 0 .5rem;
         width: 100%;
+        max-height: calc(1.15rem * 4);
         overflow: hidden;
     }
     &__price {
