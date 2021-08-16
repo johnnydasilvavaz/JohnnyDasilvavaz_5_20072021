@@ -29,7 +29,7 @@ function createPage(element) {
     let desc = document.querySelector('#desc_teddie');
     desc.textContent = element.description;
     let price = document.querySelector('#price_teddie');
-    price.textContent = element.price + " €";
+    price.textContent = element.price.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
     //color selector
     let selectColor = document.querySelector('#select-color');
     //for loop to populate the color selector
@@ -43,11 +43,11 @@ function createPage(element) {
     let selectQty = document.querySelector('#select-qty');
     let total = document.querySelector('#buy_price');
     totalPrice = element.price;
-    total.innerText = " = " + totalPrice + " €";
+    total.innerText = " = " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
     // add eventlistener to update the total price when changing quantity
     selectQty.addEventListener('change', (event) => {
         totalPrice = element.price * event.target.value;
-        total.innerText = " = " + totalPrice + " €";
+        total.innerText = " = " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
     });
     //add to cart button
     let addCart = document.querySelector('#add_btn');

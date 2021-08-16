@@ -86,7 +86,7 @@ function createPage(apiList) {
                 lineDiv.appendChild(lineNbr);
                 let linePrice = document.createElement('p');
                 totalPrice = apiTeddie.price * cartList[apiTeddie._id][idArray].qty;
-                linePrice.innerText = " " + totalPrice + " €";
+                linePrice.innerText = " " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
                 totalArray.push(linePrice);
                 lineDiv.appendChild(linePrice);
                 lineNbr.addEventListener('change', (event) => {
@@ -94,14 +94,14 @@ function createPage(apiList) {
                         cartList[apiTeddie._id][idArray].qty = event.target.value;
                         addToLocalStorage(cartList);
                         totalPrice = apiTeddie.price * event.target.value;
-                        linePrice.innerText = " " + totalPrice + " €";
+                        linePrice.innerText = " " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
                         calcTotal();
                     } else {
                         event.target.value = 1;
                         cartList[apiTeddie._id][idArray].qty = event.target.value;
                         addToLocalStorage(cartList);
                         totalPrice = apiTeddie.price * event.target.value;
-                        linePrice.innerText = " " + totalPrice + " €";
+                        linePrice.innerText = " " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
                         calcTotal();
                     }
                 });
@@ -122,10 +122,11 @@ function createPage(apiList) {
 function calcTotal() {
     let addition = 0;
     for (val in totalArray) {
-        totalArray[val].innerText.replace(" €", "");
-        addition += parseInt(totalArray[val].innerText);
+        const tArray = totalArray[val].innerText.replace(/\.|\ €$/g, "");
+        console.log(tArray);
+        addition += parseInt(tArray);
     }
-    recapTotal.innerText = "Total : " + addition + " €";
+    recapTotal.innerText = "Total : " + addition.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
     return addition;
 }
 
