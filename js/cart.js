@@ -175,7 +175,7 @@ function checkInput(type, input) {
     }
 
     if (reg.test(input.value)) {
-        input.className = 'input';
+        input.className = 'input input--valid';
         return true;
     } else {
         input.className = 'input input--invalid';
@@ -202,21 +202,19 @@ function sendOrder() {
     for (idCart of Object.keys(cartList)) {
         idList.push(idCart);
     }
-    if (checkForm) {
-        order = {"contact": {
-            firstName: firstName.value,
-            lastName: lastName.value,
-            email: email.value,
-            address: address.value,
-            city: city.value
-            },
-            "products": idList
-        };
-        postUrl('http://localhost:3000/api/teddies/order', order).then((result) => orderPage(result));
-    }
+    order = {"contact": {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
+        address: address.value,
+        city: city.value
+        },
+        "products": idList
+    };
+    postUrl('http://localhost:3000/api/teddies/order', order).then((result) => confirmPage(result));
 }
 
-function orderPage(result) {
+function confirmPage(result) {
     let orderId;
     result["orderId"] ? orderId = result["orderId"] : false;
     window.location = "./confirmation.html?id=" + orderId + "&price=" + recapTotal.innerText.replace("Total : ", "");

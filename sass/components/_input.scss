@@ -5,6 +5,10 @@
     &:focus {
         outline: .1rem solid $color-secondary;
     }
+    &--valid {
+        border: .1rem solid lighten(green, 20);
+        @include shadows(.25, .4rem, 0, true, green);
+    }
     &--invalid {
         border: .1rem solid lighten(red, 20);
         @include shadows(.25, .4rem, 0, true, red);

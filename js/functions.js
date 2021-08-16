@@ -48,10 +48,9 @@ function addToCart(id, color, nbr) {
     if (getLocalStorage('oriteddies')) {
         getCartList();
     }
-
     if (cartList[id]) {
         for (let i in cartList[id]) {
-            if (cartList[id][i] == color) {
+            if (cartList[id][i].color == color) {
                 cartList[id][i].qty += nbr;
                 addToLocalStorage(cartList);
                 return;
@@ -63,7 +62,6 @@ function addToCart(id, color, nbr) {
         cartList[id] = [{color: color, qty: nbr}];
         addToLocalStorage(cartList);
     }
-    
     showPin('block');
 }
 

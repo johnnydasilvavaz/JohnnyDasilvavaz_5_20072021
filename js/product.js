@@ -4,14 +4,14 @@ const product = urlParams.get('product');
 const content =  document.querySelector('.pagecontent');
 const modal = document.querySelector('#modal');
 const btnContinue = document.querySelector('#btn-continue');
-btnContinue.addEventListener('click', () => switchModal(modal));
+btnContinue.addEventListener('click', () => switchModal());
 const btnCart = document.querySelector('#btn-cart');
 btnCart.addEventListener('click', () => window.location.href = './cart.html');
 modal.style.display = 'none';
 const teddie = fetchUrl("http://localhost:3000/api/teddies/" + product).then((result) => createPage(result));
 let totalPrice;
 
-function switchModal(modal) {
+function switchModal() {
     if (modal.style.display == 'flex') {
         modal.style.display = 'none';
     } else {
