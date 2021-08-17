@@ -158,8 +158,8 @@ function showCart(value) {
 function checkInput(type, input) {
     //regex
     const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,})*$/;
-    const addressRegex = /^[a-zA-Zéèàùê0-9 ',.-]{3,}$/;
-    const nameRegex = /^[a-zA-Zéèàùê '.-]{2,}$/;
+    const addressRegex = /^[a-zA-Zéèàùêç0-9 ',.-]{3,}$/;
+    const nameRegex = /^[a-zA-Zéèàùêç '.-]{2,}$/;
     let reg;
 
     switch(type){
