@@ -53,7 +53,7 @@ function checkCart() {
 function createPage(apiList) {
     if (checkCart()) {
         totalArray = [];
-        let lines = document.createElement('div');
+        const lines = document.createElement('div');
         lines.setAttribute('class', 'order');
         recapList.appendChild(lines);
         //loop to search an id in cartList (localStorage)
@@ -62,20 +62,20 @@ function createPage(apiList) {
             for (let idArray in cartList[idCart]) {
                 //find id in API that equals to id in cartList
                 const apiTeddie = apiList.find( element => element._id === idCart);
-                let line = document.createElement('div');
+                const line = document.createElement('div');
                 line.setAttribute('class', 'order__line');
                 lines.appendChild(line);
-                let lineImg = document.createElement('img');
+                const lineImg = document.createElement('img');
                 lineImg.setAttribute('class', 'order__img');
                 lineImg.setAttribute('src', apiTeddie.imageUrl);
                 line.appendChild(lineImg);
-                let lineDiv = document.createElement('div');
+                const lineDiv = document.createElement('div');
                 lineDiv.setAttribute('class', 'order__line__body');
                 line.appendChild(lineDiv);
-                let lineDesc = document.createElement('p');
+                const lineDesc = document.createElement('p');
                 lineDesc.innerText = apiTeddie.name + " (" + cartList[apiTeddie._id][idArray].color + ")";
                 lineDiv.appendChild(lineDesc);
-                let lineNbr = document.createElement('input');
+                const lineNbr = document.createElement('input');
                 lineNbr.setAttribute('id', 'select-qty');
                 lineNbr.setAttribute('class', 'input');
                 lineNbr.setAttribute('type', 'number');
@@ -84,11 +84,12 @@ function createPage(apiList) {
                 lineNbr.setAttribute('min', 1);
                 lineNbr.setAttribute('max', 99);
                 lineDiv.appendChild(lineNbr);
-                let linePrice = document.createElement('p');
+                const linePrice = document.createElement('p');
                 totalPrice = apiTeddie.price * cartList[apiTeddie._id][idArray].qty;
                 linePrice.innerText = " " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
                 totalArray.push(linePrice);
                 lineDiv.appendChild(linePrice);
+                //eventListener du bouton supprimer de chaque ligne
                 lineNbr.addEventListener('change', (event) => {
                     if (event.target.value >= 1) {
                         cartList[apiTeddie._id][idArray].qty = event.target.value;
@@ -105,7 +106,7 @@ function createPage(apiList) {
                         calcTotal();
                     }
                 });
-                let lineBtn = document.createElement('button');
+                const lineBtn = document.createElement('button');
                 lineBtn.setAttribute('type', 'button');
                 lineBtn.setAttribute('class', 'btn btn--del');
                 lineBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
