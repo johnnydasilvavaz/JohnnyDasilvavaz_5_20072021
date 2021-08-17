@@ -28,7 +28,7 @@ function createCards(list) {
         body.appendChild(desc);
         let price = document.createElement('p');
         price.setAttribute('class', 'maincard__price');
-        price.textContent = list[teddie].price.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
+        price.textContent = (list[teddie].price/100).toFixed(2) + " €";
         body.appendChild(price);
     }
 }

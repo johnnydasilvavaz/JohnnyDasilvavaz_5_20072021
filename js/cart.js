@@ -51,6 +51,7 @@ function checkCart() {
 }
 
 function createPage(apiList) {
+    //Check if the cart isn't empty
     if (checkCart()) {
         totalArray = [];
         const lines = document.createElement('div');
@@ -62,6 +63,7 @@ function createPage(apiList) {
             for (let idArray in cartList[idCart]) {
                 //find id in API that equals to id in cartList
                 const apiTeddie = apiList.find( element => element._id === idCart);
+                //build the lines of cart's elements
                 const line = document.createElement('div');
                 line.setAttribute('class', 'order__line');
                 lines.appendChild(line);
@@ -86,7 +88,7 @@ function createPage(apiList) {
                 lineDiv.appendChild(lineNbr);
                 const linePrice = document.createElement('p');
                 totalPrice = apiTeddie.price * cartList[apiTeddie._id][idArray].qty;
-                linePrice.innerText = " " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
+                linePrice.innerText = " " + (totalPrice/100).toFixed(2) + " €";
                 totalArray.push(linePrice);
                 lineDiv.appendChild(linePrice);
                 //eventListener du bouton supprimer de chaque ligne
@@ -95,14 +97,14 @@ function createPage(apiList) {
                         cartList[apiTeddie._id][idArray].qty = event.target.value;
                         addToLocalStorage(cartList);
                         totalPrice = apiTeddie.price * event.target.value;
-                        linePrice.innerText = " " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
+                        linePrice.innerText = " " + (totalPrice/100).toFixed(2) + " €";
                         calcTotal();
                     } else {
                         event.target.value = 1;
                         cartList[apiTeddie._id][idArray].qty = event.target.value;
                         addToLocalStorage(cartList);
                         totalPrice = apiTeddie.price * event.target.value;
-                        linePrice.innerText = " " + totalPrice.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
+                        linePrice.innerText = " " + (totalPrice/100).toFixed(2) + " €";
                         calcTotal();
                     }
                 });
@@ -123,11 +125,11 @@ function createPage(apiList) {
 function calcTotal() {
     let addition = 0;
     for (val in totalArray) {
-        const tArray = totalArray[val].innerText.replace(/\.|\ €$/g, "");
+        const tArray = totalArray[val].innerText.replace(" €", "")*100;
         console.log(tArray);
         addition += parseInt(tArray);
     }
-    recapTotal.innerText = "Total : " + addition.toString().replace(/(.)([0-9]{2}$)/, '$1' + '.' + '$2') + " €";
+    recapTotal.innerText = "Total : " + (addition/100).toFixed(2) + " €";
     return addition;
 }
 
