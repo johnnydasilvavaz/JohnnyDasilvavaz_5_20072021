@@ -107,8 +107,8 @@ function createPage(apiList) {
                 });
                 let lineBtn = document.createElement('button');
                 lineBtn.setAttribute('type', 'button');
-                lineBtn.setAttribute('class', 'btn');
-                lineBtn.innerText = 'X';
+                lineBtn.setAttribute('class', 'btn btn--del');
+                lineBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
                 lineBtn.addEventListener('click', () => removeCartElement(apiTeddie._id, lines, idArray));
                 line.appendChild(lineBtn);
             }

@@ -2,6 +2,8 @@
     position: relative;
     font-family: Roboto-regular;
     color: $color-txt-secondary;
+    min-height: 48px;
+    min-width: 48px;
     align-self: center;
     margin: 1.25rem;
     padding: .625rem;
@@ -31,6 +33,9 @@
         &::after {
             opacity: 1;
         }
+    }
+    &--del {
+        padding: .2rem;
     }
     &--secondary {
         background-color: $color-secondary;

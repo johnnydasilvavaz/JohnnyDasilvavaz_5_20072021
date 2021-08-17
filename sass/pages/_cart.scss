@@ -45,7 +45,33 @@
 }
 
 .buy {
-    @include flex(column, flex-start);
+    @include flex(column);
+    width: calc(100% - 2.5rem);
+    padding: 1.25rem;
+    background-color: $color-bg-secondary;
+    z-index: 1;
+    &__form {
+        @include flex(column, flex-start, flex-start);
+        & p {
+            margin: 0;
+        }
+        &__item {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            margin: .625rem;
+            width: 100%;
+            &--product {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+    }
+    & h3 {
+        font-family: Roboto-medium;
+    }
+    /*& div {
+        @include flex(row, space-evenly);
+        margin: .625rem;
+    }*/
 }
 
 #emptyMsg {

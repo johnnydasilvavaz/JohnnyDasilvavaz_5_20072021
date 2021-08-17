@@ -64,27 +64,6 @@
     margin: 0 1rem 1rem;
 }
 
-.buy {
-    @include flex(column);
-    width: calc(100% - 2.5rem);
-    padding: 1.25rem;
-    background-color: $color-bg-secondary;
-    z-index: 1;
-    &__form {
-        @include flex(column, flex-start, flex-start);
-        & p {
-            margin: 0;
-        }
-    }
-    & h3 {
-        font-family: Roboto-medium;
-    }
-    & div {
-        @include flex(row, space-evenly);
-        margin: .625rem;
-    }
-}
-
 .modal {
     @include flex;
     position: fixed;
@@ -107,4 +86,5 @@
 
 #msgOrder {
     @include flex;
+    padding: .5rem 1rem;
 }

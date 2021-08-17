@@ -40,30 +40,25 @@
             <div id="buy" class="buy">
                 <h3>Commande</h3>
                 <form class="buy__form">
-                    <div>
+                    <div class="buy__form__item">
                         <label for="firstname">Prénom : </label>
                         <input id="firstname" type="text" class="input" required='required' onblur="checkInput('name', firstName)">
-                        <span class="validfirstname"></span>
                     </div>
-                    <div>
+                    <div class="buy__form__item">
                         <label for="lastname">Nom : </label>
                         <input id="lastname" type="text" class="input" required='required' onblur="checkInput('name', lastName)">
-                        <span class="validLastname"></span>
                     </div>
-                    <div>
+                    <div class="buy__form__item">
                         <label for="address">Adresse : </label>
                         <input id="address" type="text" class="input" required='required' onblur="checkInput('address', address)">
-                        <span class="validAddress"></span>
                     </div>
-                    <div>
+                    <div class="buy__form__item">
                         <label for="city">Ville : </label>
                         <input id="city" type="text" class="input" required='required' onblur="checkInput('name', city)">
-                        <span class="validCity"></span>
                     </div>
-                    <div>
+                    <div class="buy__form__item">
                         <label for="email">E-mail : </label>
                         <input id="email" type="email" class="input" required='required' onblur="checkInput('email', email)">
-                        <span class="validEmail"></span>
                     </div>
                     <button id="buy_btn" class="btn" type="button"><i class="far fa-credit-card"></i> Passer commande</button>
                 </form>
