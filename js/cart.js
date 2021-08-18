@@ -20,6 +20,7 @@ const buyForm = document.querySelector('#buy');
 const buyButton = document.querySelector('#buy_btn');
 buyButton.addEventListener('click', () => checkForm());
 
+//cart content
 const recap = document.querySelector('#recap');
 const recapList = document.querySelector('#recapList')
 const recapTotal = document.querySelector('#recapTotal');
@@ -91,7 +92,7 @@ function createPage(apiList) {
                 linePrice.innerText = " " + (totalPrice/100).toFixed(2) + " €";
                 totalArray.push(linePrice);
                 lineDiv.appendChild(linePrice);
-                //eventListener du bouton supprimer de chaque ligne
+                //eventListener of button tu delete each line
                 lineNbr.addEventListener('change', (event) => {
                     if (event.target.value >= 1) {
                         cartList[apiTeddie._id][idArray].qty = event.target.value;
@@ -122,6 +123,7 @@ function createPage(apiList) {
     }
 }
 
+//update the total price
 function calcTotal() {
     let addition = 0;
     for (val in totalArray) {
@@ -133,6 +135,7 @@ function calcTotal() {
     return addition;
 }
 
+//remove one line in the cart
 function removeCartElement(element, lines, color) {
     removeFromCart(element, color);
     lines.innerHTML = '';
@@ -145,6 +148,7 @@ function removeCartElement(element, lines, color) {
     }
 }
 
+//show or hide cart content
 function showCart(value) {
     if (value) {
         emptyMsg.style.display = 'none';
@@ -157,9 +161,10 @@ function showCart(value) {
     }
 }
 
+//check one input
 function checkInput(type, input) {
     //regex
-    const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,})*$/;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]{2,})*$/;
     const addressRegex = /^[a-zA-Zéèàùêç0-9 ',.-]{3,}$/;
     const nameRegex = /^[a-zA-Zéèàùêç '.-]{2,}$/;
     let reg;
@@ -187,6 +192,7 @@ function checkInput(type, input) {
     }
 }
 
+//check every input in the form
 function checkForm() {
     if (checkInput("name", firstName) && checkInput("name", lastName) && checkInput("address", address) && checkInput("name", city) && checkInput("email", email)) {
         sendOrder();
@@ -200,6 +206,7 @@ function checkForm() {
     }
 }
 
+//set data and send to the API
 function sendOrder() {
     let idList = [];
     let order = {};
@@ -218,6 +225,7 @@ function sendOrder() {
     postUrl('http://localhost:3000/api/teddies/order', order).then((result) => confirmPage(result));
 }
 
+//go to confirmation page with order id and price
 function confirmPage(result) {
     let orderId;
     result["orderId"] ? orderId = result["orderId"] : false;

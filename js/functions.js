@@ -3,6 +3,7 @@ const pin = document.querySelector('.header__pin');
 showPin('none');
 getCartList();
 
+//get data from API
 async function fetchUrl(url) {
     try {
         return await fetch(url).then((response) => response.json());
@@ -11,6 +12,7 @@ async function fetchUrl(url) {
     }
 }
 
+//send data to API
 async function postUrl(url, body) {
     try {
         return await fetch(url, {
@@ -48,6 +50,7 @@ function addToCart(id, color, nbr) {
     if (getLocalStorage('oriteddies')) {
         getCartList();
     }
+    //test if id is already in the localStorage
     if (cartList[id]) {
         for (let i in cartList[id]) {
             if (cartList[id][i].color == color) {
